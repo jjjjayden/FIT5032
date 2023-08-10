@@ -102,9 +102,9 @@ Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.Owin.Security.MicrosoftAccount.xm
 Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.Owin.Security.OAuth.xml
 Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.csproj.AssemblyReference.cache
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.HospitalSysModel.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.csproj.GenerateResource.cache
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.csproj.CoreCompileInputs.cache
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.csproj.CopyComplete
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.dll
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.pdb
-Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.HospitalSysModel.resources
-Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.csproj.GenerateResource.cache
