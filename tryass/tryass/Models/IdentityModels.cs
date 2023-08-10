@@ -29,5 +29,7 @@ namespace tryass.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<HospitalSys> HospitalSyses { get; set; }
     }
 }
