@@ -1,0 +1,33 @@
+﻿
+
+
+.contner {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.form-login{
+   margin-top:200px;
+}
+
+#loginForm form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cat-bg {
+    background-image: url('Images/cat.png');
+    height: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #333;
+}
+
+.form-control{
+    
+}
