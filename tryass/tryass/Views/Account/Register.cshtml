@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Register";
 }
+@Styles.Render("~/Content/bootstrap-datetimepicker.css")
 
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
@@ -30,6 +31,31 @@
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
+
+        <div class="row">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            @Html.LabelFor(m => m.DateofBirth, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10" style="position: relative;">
+                @Html.TextBoxFor(m => m.DateofBirth, new { @class = "form-control" })
+            </div>
+        </div>
+
+
+
+
+
         <div class="row">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Register" class="btn btn-outline-dark" />
@@ -40,4 +66,11 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datepicker")
+    <script type="text/javascript">
+        $(function () {
+            $('#DateofBirth').datetimepicker();
+        });
+    </script>
+
 }

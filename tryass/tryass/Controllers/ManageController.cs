@@ -15,7 +15,7 @@ namespace tryass.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ManageController()
         {
         }
@@ -64,8 +64,12 @@ namespace tryass.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = db.Users.Where(u=>u.Id == userId).FirstOrDefault();
             var model = new IndexViewModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateofBirth = user.DateofBirth,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
