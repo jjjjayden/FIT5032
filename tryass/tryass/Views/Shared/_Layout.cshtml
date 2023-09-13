@@ -19,13 +19,9 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Clinics", "Index", "HospitalSys", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Admin board", "Index", "Applicationusers", new { area = "" }, new { @class = "nav-link" })</li>
 
-
-
-                    @if (User.IsInRole("Admin") || User.Identity.Name.ToLower() == "user")
-                    {
-                        <li>@Html.ActionLink("Clinics", "Index", "HospitalSys", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
                 </ul>
 
                 @Html.Partial("_LoginPartial")

@@ -26,20 +26,24 @@ namespace tryass
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new Bundle("~/bundles/datepicker").Include(
-                "~/Scripts/jquery.min.js", 
-                "~/Scripts/bootstrap.min.js", 
                 "~/Scripts/moment.min.js",
                 "~/Scripts/bootstrap-datetimepicker.js"));
 
 
 
 
+
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/LoginFormStyles.css",
+                      "~/Content/Site.css",
                       "~/Content/jquery.dataTables.min.css",
-                      "~/Content/bootstrap-datetimepicker.min.css"));
+                      "~/Content/bootstrap-datetimepicker.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Logincss").Include(
+                "~/Content/LoginFormStyles.css"));
+
 
         }
     }
