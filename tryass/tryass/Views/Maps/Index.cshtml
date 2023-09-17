@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Index</h2>
+<h2>Map</h2>
 <div id="map" style="height:300px">
 </div>
 <br />
@@ -12,7 +12,7 @@
     @Html.ActionLink("Create New", "Create", "Locations", new { @class = "btn btn-primary" })
 </p>
 
-<table class="table" id="userTable2">
+<table class="table" id="userTable">
     <thead>
         <tr>
             <th>
@@ -62,10 +62,10 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            let table = new DataTable('#userTable2');
+            let table = new DataTable('#userTable');
         }
         )
-            )
+
     </script>
     @Scripts.Render("~/bundles/mapbox")
 }
