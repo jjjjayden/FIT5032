@@ -3,58 +3,81 @@
     ViewBag.Title = "Register";
 }
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+<style>
+    main {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    .form-header {
+        padding: 20px 0;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 30px;
+    }
+
+    .form-footer {
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .float-label {
+        position: absolute;
+        left: 10px;
+        top: -20px;
+        font-size: 0.8em;
+    }
+</style>
+
+<main aria-labelledby="title">
+    <div class="form-header">
+        <h2 id="title">@ViewBag.Title</h2>
+        <h4>Create a new account</h4>
+    </div>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", @class = "mt-4" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
+        @Html.ValidationSummary("", new { @class = "text-danger mb-4" })
+
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email" })
+            @Html.LabelFor(m => m.Email, new { @class = "float-label" })
         </div>
 
-        <div class="row">
-            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter a strong password" })
+            @Html.LabelFor(m => m.Password, new { @class = "float-label" })
         </div>
 
-        <div class="row">
-            @Html.LabelFor(m => m.DateofBirth, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10" style="position: relative;">
-                @Html.TextBoxFor(m => m.DateofBirth, new { @class = "form-control" })
-            </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm your password" })
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "float-label" })
         </div>
 
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
-            </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.LabelFor(m => m.FirstName, new { @class = "float-label" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.LabelFor(m => m.LastName, new { @class = "float-label" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.DateofBirth, new { @class = "form-control", placeholder = "MM/DD/YYYY" })
+            @Html.LabelFor(m => m.DateofBirth, new { @class = "float-label" })
+        </div>
+
+        <div class="form-footer">
+            <input type="submit" value="Register" class="btn btn-outline-dark" />
         </div>
     }
 </main>
@@ -67,5 +90,4 @@
             $('#DateofBirth').datetimepicker();
         });
     </script>
-
 }
