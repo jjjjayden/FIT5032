@@ -63,6 +63,12 @@ namespace tryass
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "150504097795-jsjofgt8eeibs2f984gfpfsfo153avhj.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
+
         }
     }
 }

@@ -29,8 +29,8 @@ namespace tryass
                 "~/Scripts/moment.min.js",
                 "~/Scripts/bootstrap-datetimepicker.js"));
 
-
-
+            bundles.Add(new ScriptBundle("~/bundles/mapbox").Include(
+                "~/Scripts/map.js"));
 
 
 
@@ -43,6 +43,16 @@ namespace tryass
 
             bundles.Add(new StyleBundle("~/Content/Logincss").Include(
                 "~/Content/LoginFormStyles.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/mainCss").Include(
+                "~/Content/animate.css",
+                "~/Content/bootstrap.min.css",
+                "~/Content/owl.carousel.min.css",
+                "~/Content/font-awesome.min.css",
+                "~/Content/font/flaticon.css",
+                "~/Content/main.css"
+                ));
 
 
         }

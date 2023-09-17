@@ -38,6 +38,6 @@ namespace tryass.Models
 
         public DbSet<HospitalSys> HospitalSyses { get; set; }
 
-        
+        public System.Data.Entity.DbSet<tryass.Models.Map> Maps { get; set; }
     }
 }
