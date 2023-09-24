@@ -1,0 +1,19 @@
+﻿.custom-btn {
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 0 5px;
+    border: 1px solid #000;
+    background-color: transparent;
+    color: black;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+    .custom-btn:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-btn:active {
+        transform: scale(0.95);
+        background-color: rgba(0, 0, 0, 0.2);
+    }

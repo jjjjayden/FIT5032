@@ -29,5 +29,7 @@ namespace tryass.Models
         [Required]
         [Range(-180, 180)] 
         public decimal Longitude { get; set; }
+
+        
     }
 }

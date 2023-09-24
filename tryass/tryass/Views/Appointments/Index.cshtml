@@ -1,0 +1,79 @@
+﻿@model IEnumerable<tryass.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="userTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Map.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBooked)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Map.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBooked)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    <input type="submit" value="Book" class="btn btn-success" data-appointment-id="@item.Id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+            $('#userTable').on('click', '.btn-success', function () {
+                var appointmentId = $(this).data('appointment-id');
+                $.post('/Appointments/BookAppointment', { appointmentId: appointmentId }, function (data) {
+                    if (data.success) {
+                        alert('Appointment booked successfully.');
+                    } else {
+                        alert('Appointment booking failed.');
+                    }
+                });
+            });
+        });
+    </script>
+}

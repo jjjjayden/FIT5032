@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("X-ray System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -24,9 +24,11 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Clinics", "Index", "HospitalSys", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Admin board", "Index", "Applicationusers", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Map", "Index", "Maps", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Appointment", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("X-ray image", "Index", "XrayImages", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Annotations", "Index", "Annotations", new { area = "" }, new { @class = "nav-link" })</li>
 
                 </ul>
 

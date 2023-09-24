@@ -50,9 +50,32 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=3.7.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.3.7.0\lib\net472\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -169,14 +192,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnnotationsController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalSysController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
+    <Compile Include="Controllers\XrayImagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Job\AppointmentGenerationJob.cs" />
     <Compile Include="Migrations\202309171411387_Initial.cs" />
     <Compile Include="Migrations\202309171411387_Initial.designer.cs">
       <DependentUpon>202309171411387_Initial.cs</DependentUpon>
@@ -185,12 +212,27 @@
     <Compile Include="Migrations\202309171442145_Mapmax.designer.cs">
       <DependentUpon>202309171442145_Mapmax.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309210607537_AppointmentModel.cs" />
+    <Compile Include="Migrations\202309210607537_AppointmentModel.designer.cs">
+      <DependentUpon>202309210607537_AppointmentModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309210645582_xImageModel.cs" />
+    <Compile Include="Migrations\202309210645582_xImageModel.designer.cs">
+      <DependentUpon>202309210645582_xImageModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309241012291_UpdatedAppointmentModel.cs" />
+    <Compile Include="Migrations\202309241012291_UpdatedAppointmentModel.designer.cs">
+      <DependentUpon>202309241012291_UpdatedAppointmentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Annotation.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\HospitalSys.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\XrayImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -214,6 +256,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\DataTable\Glassshow.css" />
+    <Content Include="Content\DataTable\map-btn.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font\flaticon.css" />
     <Content Include="Content\Images\cat.png" />
@@ -309,19 +353,35 @@
     <Content Include="Views\HospitalSys\Details.cshtml" />
     <Content Include="Views\HospitalSys\Edit.cshtml" />
     <Content Include="Views\HospitalSys\Index.cshtml" />
-    <Content Include="Views\ApplicationUsers\Create.cshtml" />
-    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
-    <Content Include="Views\ApplicationUsers\Details.cshtml" />
-    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
-    <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\Maps\Create.cshtml" />
     <Content Include="Views\Maps\Delete.cshtml" />
     <Content Include="Views\Maps\Details.cshtml" />
     <Content Include="Views\Maps\Edit.cshtml" />
     <Content Include="Views\Maps\Index.cshtml" />
+    <Content Include="Views\XrayImages\Create.cshtml" />
+    <Content Include="Views\XrayImages\Delete.cshtml" />
+    <Content Include="Views\XrayImages\Details.cshtml" />
+    <Content Include="Views\XrayImages\Edit.cshtml" />
+    <Content Include="Views\XrayImages\Index.cshtml" />
+    <Content Include="Views\Annotations\Create.cshtml" />
+    <Content Include="Views\Annotations\Delete.cshtml" />
+    <Content Include="Views\Annotations\Details.cshtml" />
+    <Content Include="Views\Annotations\Edit.cshtml" />
+    <Content Include="Views\Annotations\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\Delete.cshtml" />
+    <Content Include="Views\Appointments\Details.cshtml" />
+    <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\UploadedImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -356,6 +416,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309171442145_Mapmax.resx">
       <DependentUpon>202309171442145_Mapmax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309210607537_AppointmentModel.resx">
+      <DependentUpon>202309210607537_AppointmentModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309210645582_xImageModel.resx">
+      <DependentUpon>202309210645582_xImageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309241012291_UpdatedAppointmentModel.resx">
+      <DependentUpon>202309241012291_UpdatedAppointmentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

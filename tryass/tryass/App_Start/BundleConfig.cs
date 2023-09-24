@@ -54,6 +54,11 @@ namespace tryass
                 "~/Content/main.css"
                 ));
 
+            bundles.Add(new StyleBundle("~/Content/glassshow").Include(
+                "~/Content/Datatable/Glassshow.css",
+                "~/Content/Datatable/map-btn.css"
+                ));
+
 
         }
     }

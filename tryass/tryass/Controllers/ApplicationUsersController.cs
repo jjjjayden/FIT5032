@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using tryass.Models;
@@ -16,35 +13,25 @@ namespace tryass.Controllers
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private UserManager<ApplicationUser> _userManager;
-
-        public ApplicationUsersController()
-        {
-            var store = new UserStore<ApplicationUser>(db);
-            _userManager = new UserManager<ApplicationUser>(store);
-        }
 
         // GET: ApplicationUsers
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Users.ToListAsync());
+            return View(db.Users.ToList());
         }
 
         // GET: ApplicationUsers/Details/5
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Details(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
-
+            ApplicationUser applicationUser = db.Users.Find(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-
             return View(applicationUser);
         }
 
@@ -55,14 +42,16 @@ namespace tryass.Controllers
         }
 
         // POST: ApplicationUsers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DateofBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
                 db.Users.Add(applicationUser);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -70,64 +59,59 @@ namespace tryass.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public ActionResult Edit(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
-
+            ApplicationUser applicationUser = db.Users.Find(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-
             return View(applicationUser);
         }
 
         // POST: ApplicationUsers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DateofBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(applicationUser).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(applicationUser);
         }
 
         // GET: ApplicationUsers/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public ActionResult Delete(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
-
+            ApplicationUser applicationUser = db.Users.Find(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-
             return View(applicationUser);
         }
 
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(id);
+            ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -136,9 +120,8 @@ namespace tryass.Controllers
             if (disposing)
             {
                 db.Dispose();
-
-
             }
+            base.Dispose(disposing);
         }
     }
 }

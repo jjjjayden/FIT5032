@@ -1,0 +1,34 @@
+﻿@model tryass.Models.XrayImage
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "XrayImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Upload X-ray Image</h2>
+
+        <div class="form-group">
+            <label for="ImageFile">X-ray Image:</label>
+            <input type="file" name="ImageFile" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

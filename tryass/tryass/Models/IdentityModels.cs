@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,9 +23,12 @@ namespace tryass.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DateofBirth { get; set; }
-    }
+        public virtual ICollection<Appointment> Appointments { get; set; }
 
+
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -39,5 +44,13 @@ namespace tryass.Models
         public DbSet<HospitalSys> HospitalSyses { get; set; }
 
         public System.Data.Entity.DbSet<tryass.Models.Map> Maps { get; set; }
+
+        public DbSet<Appointment> Appointments { get; set; }
+
+        public DbSet<XrayImage> XrayImages { get; set; }
+
+        public DbSet<Annotation> Annotation { get; set; }
+
+        
     }
 }
