@@ -36,16 +36,16 @@ namespace tryass.Controllers
         }
 
         // GET: Maps/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Maps/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Latitude,Longitude")] Map map)
         {
             if (ModelState.IsValid)
@@ -54,11 +54,11 @@ namespace tryass.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(map);
         }
 
         // GET: Maps/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,10 +74,9 @@ namespace tryass.Controllers
         }
 
         // POST: Maps/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Latitude,Longitude")] Map map)
         {
             if (ModelState.IsValid)
@@ -90,6 +89,7 @@ namespace tryass.Controllers
         }
 
         // GET: Maps/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +107,7 @@ namespace tryass.Controllers
         // POST: Maps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Map map = db.Maps.Find(id);
