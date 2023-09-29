@@ -5,30 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<style>
+    .image-preview {
+        height: 200px;
+        border: 2px dashed #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        transition: border 0.3s ease-in-out;
+    }
+
+        .image-preview:hover {
+            border: 2px solid #007bff;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+
+    .form-group small {
+        font-size: 0.8rem;
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .custom-button {
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+</style>
 
 
-@using (Html.BeginForm("Create", "XrayImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+<h2 class="text-center text-white mb-5">Upload X-ray Image</h2>
 
-    <div class="form-horizontal">
-        <h2>Upload X-ray Image</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                @using (Html.BeginForm("Create", "XrayImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <label for="ImageFile">X-ray Image:</label>
-            <input type="file" name="ImageFile" required />
+                    <div class="image-preview mb-3">
+                        <img id="previewImage" src="#" alt="Uploaded Image Preview" style="max-width: 100%; max-height: 100%; display: none;" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ImageFile">X-ray Image:</label>
+                        <input type="file" name="ImageFile" class="form-control" required />
+                        <small class="form-text text-muted">Supported formats: .jpg, .jpeg, .png</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Upload</button>
+                }
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary">Upload</button>
     </div>
-}
 
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="text-center mt-3">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-light" })
+    </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("input[name='ImageFile']").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#previewImage").attr("src", e.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 }

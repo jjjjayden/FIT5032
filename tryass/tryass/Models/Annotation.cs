@@ -9,9 +9,9 @@ namespace tryass.Models
     {
         public int Id { get; set; }
         public string Comment { get; set; }  // Doctor's comment
-        public int DoctorId { get; set; }   // ForeignKey to User (who is a doctor)
+        public String DoctorId { get; set; }   // ForeignKey to User (who is a doctor)
         public virtual ApplicationUser Doctor { get; set; } // Navigation property
-        public int XrayImageId { get; set; }  // ForeignKey to XrayImage
+        public String XrayImageId { get; set; }  // ForeignKey to XrayImage
         public virtual XrayImage XrayImage { get; set; }  // Navigation property
     }
 }

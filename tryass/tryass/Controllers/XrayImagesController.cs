@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,12 +16,25 @@ namespace tryass.Controllers
     public class XrayImagesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        // for user return users image
+        //for doctor and admin return all suers images
         // GET: XrayImages
         public ActionResult Index()
         {
-            return View(db.XrayImages.ToList());
+            var userId = User.Identity.GetUserId();
+
+
+            if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+            {
+                return View(db.XrayImages.ToList()); 
+            }
+            else
+            {
+                return View(db.XrayImages.Where(x => x.UserId == userId).ToList()); 
+            }
         }
+
+
 
         // GET: XrayImages/Details/5
         public ActionResult Details(int? id)
@@ -62,6 +76,9 @@ namespace tryass.Controllers
                     xrayImage.ImageUrl = "/Content/UploadedImages/" + fileName;
                     xrayImage.UploadDate = DateTime.Now;
 
+                    // Set the UserId to the ID of the currently logged-in user
+                    xrayImage.UserId = User.Identity.GetUserId();
+
                     db.XrayImages.Add(xrayImage);
                     db.SaveChanges();
 
@@ -71,6 +88,7 @@ namespace tryass.Controllers
 
             return View(xrayImage);
         }
+
 
 
         // GET: XrayImages/Edit/5

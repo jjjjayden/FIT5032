@@ -224,6 +224,10 @@
     <Compile Include="Migrations\202309241012291_UpdatedAppointmentModel.designer.cs">
       <DependentUpon>202309241012291_UpdatedAppointmentModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309291237390_ChangeIDinto.cs" />
+    <Compile Include="Migrations\202309291237390_ChangeIDinto.designer.cs">
+      <DependentUpon>202309291237390_ChangeIDinto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Annotation.cs" />
@@ -425,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309241012291_UpdatedAppointmentModel.resx">
       <DependentUpon>202309241012291_UpdatedAppointmentModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309291237390_ChangeIDinto.resx">
+      <DependentUpon>202309291237390_ChangeIDinto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
