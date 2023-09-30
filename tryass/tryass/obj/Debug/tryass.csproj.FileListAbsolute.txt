@@ -127,3 +127,5 @@ Q:\5032ASS\FIT5032\tryass\tryass\bin\System.Memory.xml
 Q:\5032ASS\FIT5032\tryass\tryass\bin\System.Numerics.Vectors.xml
 Q:\5032ASS\FIT5032\tryass\tryass\bin\System.Runtime.CompilerServices.Unsafe.xml
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.ChangeIDinto.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.Changeannotation.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.Changeannotation2.resources

@@ -192,7 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AnnotationsController.cs" />
+    <Compile Include="Controllers\AnnotationController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -227,6 +227,14 @@
     <Compile Include="Migrations\202309291237390_ChangeIDinto.cs" />
     <Compile Include="Migrations\202309291237390_ChangeIDinto.designer.cs">
       <DependentUpon>202309291237390_ChangeIDinto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309301656484_Changeannotation.cs" />
+    <Compile Include="Migrations\202309301656484_Changeannotation.designer.cs">
+      <DependentUpon>202309301656484_Changeannotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309301700305_Changeannotation2.cs" />
+    <Compile Include="Migrations\202309301700305_Changeannotation2.designer.cs">
+      <DependentUpon>202309301700305_Changeannotation2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -367,11 +375,6 @@
     <Content Include="Views\XrayImages\Details.cshtml" />
     <Content Include="Views\XrayImages\Edit.cshtml" />
     <Content Include="Views\XrayImages\Index.cshtml" />
-    <Content Include="Views\Annotations\Create.cshtml" />
-    <Content Include="Views\Annotations\Delete.cshtml" />
-    <Content Include="Views\Annotations\Details.cshtml" />
-    <Content Include="Views\Annotations\Edit.cshtml" />
-    <Content Include="Views\Annotations\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\Create.cshtml" />
     <Content Include="Views\ApplicationUsers\Delete.cshtml" />
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
@@ -382,6 +385,10 @@
     <Content Include="Views\Appointments\Details.cshtml" />
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Views\Annotations\Index.cshtml" />
+    <Content Include="Views\Annotations\Edit.cshtml" />
+    <Content Include="Views\Annotations\AddComment.cshtml" />
+    <Content Include="Views\Annotations\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -432,6 +439,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309291237390_ChangeIDinto.resx">
       <DependentUpon>202309291237390_ChangeIDinto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309301656484_Changeannotation.resx">
+      <DependentUpon>202309301656484_Changeannotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309301700305_Changeannotation2.resx">
+      <DependentUpon>202309301700305_Changeannotation2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

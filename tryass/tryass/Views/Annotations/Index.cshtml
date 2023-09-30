@@ -1,46 +1,42 @@
-﻿@model IEnumerable<tryass.Models.Annotation>
-
+﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
+@model IEnumerable<tryass.Models.Annotation>
+
+@{
+    ViewBag.Title = "Annotations";
+}
+
+<h2>Annotations</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.XrayImage.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DoctorId)
-        </th>
-        <th></th>
+        <th>User ID</th>
+        <th>Image</th>
+        <th>Comment</th>
+        <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.XrayImage.ImageUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DoctorId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserId</td>
+            <td><img src="@item.XrayImage.ImageUrl" alt="X-ray Image" width="100"></td>
+            <td>@item.Comment</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Add Comment", "AddComment", new { id = item.Id })
+            </td>
+        </tr>
+    }
 </table>
+
+
+
