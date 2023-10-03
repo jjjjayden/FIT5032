@@ -1,54 +1,17 @@
-﻿<!DOCTYPE html>
+﻿
+<!-- _Layout.cshtml -->
+
+<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-    <!-- Add the external font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- Mapbox CSS and JS -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
-
-    <!-- Custom styling -->
-    <style>
-        /* Navbar Enhancements */
-        .navbar {
-            background: linear-gradient(45deg, #007bff, #6610f2);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand, .nav-link {
-            font-family: 'Nunito', sans-serif;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .nav-link:hover {
-            color: #ffdd57 !important;
-        }
-
-        /* Body Content Enhancements */
-        .body-content {
-            margin: 40px 0;
-        }
-
-        /* Footer Enhancements */
-        footer {
-            background-color: #f7f7f7;
-            padding: 20px 0;
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
@@ -60,7 +23,10 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Admin board", "Index", "Applicationusers", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.IsInRole("Staff"))
+                    {
+                        <li>@Html.ActionLink("Admin board", "Index", "Applicationusers", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                     <li>@Html.ActionLink("Map", "Index", "Maps", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Appointment", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("X-ray image", "Index", "XrayImages", new { area = "" }, new { @class = "nav-link" })</li>
@@ -71,6 +37,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -81,6 +48,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

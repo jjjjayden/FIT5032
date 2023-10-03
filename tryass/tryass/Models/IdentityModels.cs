@@ -51,6 +51,6 @@ namespace tryass.Models
 
         public DbSet<Annotation> Annotation { get; set; }
 
-        
+
     }
 }

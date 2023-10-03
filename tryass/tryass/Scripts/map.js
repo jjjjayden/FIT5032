@@ -1,32 +1,96 @@
-﻿const TOKEN = "pk.eyJ1IjoiampqampheWRlbiIsImEiOiJjbGZ1dTMydnowMHFqM2ZtZ3Z2d2VzZzBhIn0.ieRaUkbR6O35PdRPo3LpqQ";
-var locations = []; 
-// The first step is obtain all the latitude and longitude from the HTML
-// The below is a simple jQuery selector 
-$(".coordinates").each(function () {
-    var longitude = $(".longitude", this).text().trim();
-    var latitude = $(".latitude", this).text().trim();
-    var description = $(".description", this).text().trim();
-    // Create a point data structure to hold the values.     
-    var point = { "latitude": latitude, "longitude": longitude, "description": description };
-    // Push them all into an array.     
-    locations.push(point);
-}); var data = [];
-for (i = 0; i < locations.length; i++) { var feature = { "type": "Feature", "properties": { "description": locations[i].description, "icon": "circle-15" }, "geometry": { "type": "Point", "coordinates": [locations[i].longitude, locations[i].latitude] } }; data.push(feature) } 
-mapboxgl.accessToken = TOKEN; var map = new mapboxgl.Map({ container: 'map', style: 'mapbox://styles/mapbox/streets-v10', zoom: 11, center: [locations[0].longitude, locations[0].latitude] }); 
-map.on('load', function () { 
-    // Add a layer showing the places. 
-    map.addLayer({ "id": "places", "type": "symbol", "source": { "type": "geojson", "data": { "type": "FeatureCollection", "features": data } }, "layout": { "icon-image": "{icon}", "icon-allow-overlap": true } });
-    map.addControl(new MapboxGeocoder({ 
-        accessToken: mapboxgl.accessToken
-    }));; 
-    map.addControl(new mapboxgl.NavigationControl()); 
-    map.on('click', 'places', function (e) { var coordinates = e.features[0].geometry.coordinates.slice(); var description = e.features[0].properties.description;
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.         
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360; } new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
-        map.on('mouseenter', 'places', function () { map.getCanvas().style.cursor = 'pointer'; });
-        // Change it back to a pointer when it leaves.     
-        map.on('mouseleave', 'places', function () { map.getCanvas().style.cursor = ''; });
+﻿let map;
+
+let xmlHttp = new XMLHttpRequest();
+xmlHttp.open("GET", "Maps/GetMaps", false)
+xmlHttp.send(null);
+getmaps = JSON.parse(xmlHttp.responseText);
+console.log(getmaps)
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+            ? "Error: The Geolocation service is failed"
+            : "Error: Your browser donsent support geolocation");
+    infoWindow.open(map);
+
+}
+
+function geocodeMap(map, address) {
+    var geocoder = new google.maps.Geocoder();
+    var content = "<h3>" + address.Name + "<h3><hr/><p>" + address.Description + "<p/>"
+    var infoWindow = new google.maps.InfoWindow({ content: content });
+    geocoder.geocode({ address: address.Description }, function (result, status) {
+        if (status === "OK") {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: result[0].geometry.location
+            });
+            marker.addListener("click", function () {
+                infoWindow.open(map, marker);
+            }
+            );
+        }
     });
+}
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
     });
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+            },
+            () => {
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        );
+
+    } else {
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+    //mark
+    for (var i = 0; i < getmaps.length; i++) {
+        geocodeMap(map, getmaps[i]);
+    }
+    //get start direction
+    var start = document.getElementById("start")
+    const autoComplete = new google.maps.places.Autocomplete(start);
+    autoComplete.bindTo("bounds", map);
+
+    //get end direction
+    const directionsRenderer = new google.maps.DirectionsRenderer(); 
+    const directionsService = new google.maps.DirectionsService(); 
+    directionsRenderer.setMap(map);
+    directionsRenderer.setPanel(document.getElementById("sidebar"));
+
+    var getDirection = document.getElementById("get-direction");
+    getDirection.addEventListener("click", () => {
+        directionsService.route({
+            origin: {
+                query: document.getElementById("start").value
+            },
+            destination: {
+                query: document.getElementById("end").value
+            },
+            travelMode: google.maps.TravelMode[document.getElementById("mode").value.toUpperCase()] 
+        }, (response, status) => {
+            if (status === "OK") {
+                directionsRenderer.setDirections(response);
+            } else {
+                window.alert("Unable to get direction due to " + status);
+            }
+        });
+    });
+
+
+
+}
+

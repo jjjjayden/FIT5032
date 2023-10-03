@@ -5,69 +5,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Appointments</h2>
+<div class="container">
+    <h2 class="text-center mt-4">Appointments</h2>
 
-<p class="mb-4">
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
+    <p class="text-center mb-4">
+        @if (User.IsInRole("Staff"))
+        {@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })}
+    </p>
 
-<div class="mb-3">
-    <label for="dateFilter" class="form-label">Filter by date:</label>
-    <input type="date" id="dateFilter" class="form-control-inline mr-2" />
-    <button id="applyFilter" class="btn btn-info">Apply Filter</button>
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+            <table class="table table-bordered table-striped" id="userTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Map.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.User.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsBooked)
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Map.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsBooked)
+                            </td>
+
+                            <td>
+                                @if (User.IsInRole("Staff"))
+                                {@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm mr-1" })}
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm mr-1" })
+                                @if (User.IsInRole("Staff"))
+                                {@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm mr-1" })}
+
+                                @if (item.IsBooked)
+                                {
+                                    <button class="btn btn-dark" disabled>Booked</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-success" data-appointment-id="@item.Id">Book</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<table class="table table-bordered table-striped" id="userTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Map.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsBooked)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Map.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsBooked)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm mr-1" })
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm mr-1" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm mr-1" })
-                    @if (item.IsBooked)
-                    {
-                        <button class="btn btn-dark" disabled>Booked</button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-success" data-appointment-id="@item.Id">Book</button>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 @section scripts{
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
@@ -75,13 +81,6 @@
     <script>
         $(document).ready(function () {
             var table = $('#userTable').DataTable();
-
-            $('#applyFilter').click(function () {
-                var selectedDate = $('#dateFilter').val();
-                var parts = selectedDate.split('-');
-                var formattedDate = parts[2] + '/' + parts[1] + '/' + parts[0];
-                table.column(2).search('^' + formattedDate, true, false).draw();
-            });
 
             $('#userTable').on('click', '.btn-success', function () {
                 var appointmentId = $(this).data('appointment-id');

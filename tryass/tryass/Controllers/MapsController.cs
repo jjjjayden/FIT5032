@@ -15,11 +15,18 @@ namespace tryass.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Maps
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Maps.ToList());
         }
 
+
+        public JsonResult GetMaps() {
+             var maps = db.Maps.ToList();
+            return new JsonResult{ Data = maps, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        
+        }
         // GET: Maps/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,7 +43,7 @@ namespace tryass.Controllers
         }
 
         // GET: Maps/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult Create()
         {
             return View();
@@ -45,7 +52,7 @@ namespace tryass.Controllers
         // POST: Maps/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Latitude,Longitude")] Map map)
         {
             if (ModelState.IsValid)
@@ -58,7 +65,7 @@ namespace tryass.Controllers
         }
 
         // GET: Maps/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -76,7 +83,7 @@ namespace tryass.Controllers
         // POST: Maps/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Latitude,Longitude")] Map map)
         {
             if (ModelState.IsValid)
@@ -89,7 +96,7 @@ namespace tryass.Controllers
         }
 
         // GET: Maps/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,7 +114,7 @@ namespace tryass.Controllers
         // POST: Maps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Staff")]
         public ActionResult DeleteConfirmed(int id)
         {
             Map map = db.Maps.Find(id);

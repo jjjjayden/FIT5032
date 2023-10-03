@@ -129,3 +129,12 @@ Q:\5032ASS\FIT5032\tryass\tryass\bin\System.Runtime.CompilerServices.Unsafe.xml
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.ChangeIDinto.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.Changeannotation.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.Changeannotation2.resources
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.IdentityModel.Logging.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.IdentityModel.Tokens.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\System.IdentityModel.Tokens.Jwt.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Twilio.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Microsoft.IdentityModel.Tokens.xml
+Q:\5032ASS\FIT5032\tryass\tryass\bin\System.IdentityModel.Tokens.Jwt.xml
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Twilio.xml
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.maprating.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.delmaprating.resources

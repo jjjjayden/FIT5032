@@ -15,6 +15,7 @@ namespace tryass.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: HospitalSys
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.HospitalSyses.ToList());

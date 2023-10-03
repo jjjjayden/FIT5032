@@ -9,15 +9,13 @@ public class AppointmentGenerationJob : IJob
 {
     public Task Execute(IJobExecutionContext context)
     {
-        // 这里是你生成预定时间的逻辑
         try
         {
             GenerateAppointmentsForAllHospitals();
         }
         catch (Exception ex)
         {
-            // Log the exception or handle it appropriately.
-            // For now, I'm just writing it to the console.
+
             Console.WriteLine($"Error generating appointments: {ex.Message}");
         }
         return Task.CompletedTask;
@@ -59,6 +57,9 @@ public class AppointmentGenerationJob : IJob
 
     public void CreateAppointment(int mapId, DateTime dateTime, ApplicationDbContext dbContext)
     {
+        bool appointmentExists = dbContext.Appointments.Any(a => a.MapId == mapId && a.DateTime == dateTime);
+        if (appointmentExists) return;
+
         Appointment appointment = new Appointment
         {
             MapId = mapId,
@@ -77,6 +78,7 @@ public class AppointmentGenerationJob : IJob
             Console.WriteLine($"Error saving appointment: {ex.Message}");
         }
     }
+
 
 }
 

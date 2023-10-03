@@ -19,12 +19,13 @@ namespace tryass.Controllers
         // for user return users image
         //for doctor and admin return all suers images
         // GET: XrayImages
+        [Authorize]
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
 
 
-            if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+            if (User.IsInRole("Staff") || User.IsInRole("Doctor"))
             {
                 return View(db.XrayImages.ToList()); 
             }

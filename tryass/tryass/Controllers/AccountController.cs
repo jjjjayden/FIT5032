@@ -374,7 +374,15 @@ namespace tryass.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                // When creating a new user, set the DateofBirth to a default value (current UTC date in this case)
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DateofBirth = DateTime.UtcNow  // Setting a default value
+                };
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -391,6 +399,7 @@ namespace tryass.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+
 
         //
         // POST: /Account/LogOff

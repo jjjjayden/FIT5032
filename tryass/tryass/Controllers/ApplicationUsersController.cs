@@ -15,12 +15,14 @@ namespace tryass.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ApplicationUsers
+        [Authorize(Roles = "Staff")]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Staff")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace tryass.Controllers
         }
 
         // GET: ApplicationUsers/Create
+        [Authorize(Roles = "Staff")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace tryass.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DateofBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace tryass.Controllers
         }
 
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace tryass.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DateofBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace tryass.Controllers
         }
 
         // GET: ApplicationUsers/Delete/5
+        [Authorize(Roles = "Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace tryass.Controllers
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             ApplicationUser applicationUser = db.Users.Find(id);

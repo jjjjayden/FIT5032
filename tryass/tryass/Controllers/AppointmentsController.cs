@@ -16,11 +16,21 @@ namespace tryass.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Appointments
+        [Authorize]
         public ActionResult Index()
         {
-            var appointments = db.Appointments.Include(a => a.Map).Include(a => a.User);
-            return View(appointments.ToList());
+            DateTime today = DateTime.Now.Date; 
+            DateTime sevenDaysLater = today.AddDays(7);
+
+            var appointments = db.Appointments
+                                 .Include(a => a.Map)
+                                 .Include(a => a.User)
+                                 .Where(a => a.DateTime >= today && a.DateTime < sevenDaysLater)
+                                 .ToList();
+
+            return View(appointments);
         }
+
 
         // GET: Appointments/Details/5
         public ActionResult Details(int? id)
@@ -38,6 +48,7 @@ namespace tryass.Controllers
         }
 
         // GET: Appointments/Create
+        [Authorize(Roles = "Staff")]
         public ActionResult Create()
         {
             ViewBag.MapId = new SelectList(db.Maps, "Id", "Name");
@@ -50,6 +61,7 @@ namespace tryass.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult Create([Bind(Include = "Id,MapId,DateTime,IsBooked,UserId")] Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -65,6 +77,7 @@ namespace tryass.Controllers
         }
 
         // GET: Appointments/Edit/5
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +99,7 @@ namespace tryass.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult Edit([Bind(Include = "Id,MapId,DateTime,IsBooked,UserId")] Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -100,6 +114,7 @@ namespace tryass.Controllers
         }
 
         // GET: Appointments/Delete/5
+        [Authorize(Roles = "Staff")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,6 +132,7 @@ namespace tryass.Controllers
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Staff")]
         public ActionResult DeleteConfirmed(int id)
         {
             Appointment appointment = db.Appointments.Find(id);

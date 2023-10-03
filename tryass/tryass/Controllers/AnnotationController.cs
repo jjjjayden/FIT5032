@@ -11,6 +11,7 @@ namespace tryass.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Annotations
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Annotation.ToList());
