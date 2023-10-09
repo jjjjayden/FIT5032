@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -22,11 +23,19 @@ namespace tryass.Controllers
         }
 
 
-        public JsonResult GetMaps() {
-             var maps = db.Maps.ToList();
-            return new JsonResult{ Data = maps, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        
+        public JsonResult GetMaps()
+        {
+            var maps = db.Maps.Select(m => new
+            {
+                m.Id,
+                m.Name,
+                m.Description,
+                m.Latitude,
+                m.Longitude
+            }).ToList();
+            return Json(maps, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Maps/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,13 +43,16 @@ namespace tryass.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Map map = db.Maps.Find(id);
+
+            Map map = db.Maps.Include(m => m.Ratings).SingleOrDefault(m => m.Id == id);
             if (map == null)
             {
                 return HttpNotFound();
             }
+
             return View(map);
         }
+
 
         // GET: Maps/Create
         [Authorize(Roles = "Staff")]
@@ -78,6 +90,24 @@ namespace tryass.Controllers
                 return HttpNotFound();
             }
             return View(map);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddRating(int mapId, int rating, string comment)
+        {
+            var mapRating = new MapRating
+            {
+                Rating = rating,
+                Comment = comment,
+                MapId = mapId,
+                UserId = User.Identity.GetUserId()
+            };
+
+            db.MapRatings.Add(mapRating);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = mapId });
         }
 
         // POST: Maps/Edit/5
@@ -122,6 +152,8 @@ namespace tryass.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
 
         protected override void Dispose(bool disposing)
         {

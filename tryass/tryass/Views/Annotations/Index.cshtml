@@ -1,42 +1,37 @@
-﻿
-@{
-    ViewBag.Title = "View";
+﻿@{
+    ViewBag.Title = "Annotations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@model IEnumerable<tryass.Models.Annotation>
-
-@{
-    ViewBag.Title = "Annotations";
-}
-
-<h2>Annotations</h2>
+<h2>@ViewBag.Title</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
-<table class="table">
-    <tr>
-        <th>User ID</th>
-        <th>Image</th>
-        <th>Comment</th>
-        <th>Actions</th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
+<table class="table table-bordered table-hover">
+    <thead>
         <tr>
-            <td>@item.UserId</td>
-            <td><img src="@item.XrayImage.ImageUrl" alt="X-ray Image" width="100"></td>
-            <td>@item.Comment</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Add Comment", "AddComment", new { id = item.Id })
-            </td>
+            <th>User ID</th>
+            <th>Image</th>
+            <th>Comment</th>
+            <th>Actions</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserId</td>
+                <td><img src="@item.XrayImage.ImageUrl" alt="X-ray Image" width="100"></td>
+                <td>@item.Comment</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm mr-2" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm mr-2" })
+                    @Html.ActionLink("Add Comment", "AddComment", new { id = item.Id }, new { @class = "btn btn-info btn-sm mr-2" })
+                    @Html.ActionLink("Download As PDF", "DownloadReport", new { id = item.Id, format = "pdf" }, new { @class = "btn btn-info btn-sm mr-2" })
+                    @Html.ActionLink("Download As Word", "DownloadReport", new { id = item.Id, format = "word" }, new { @class = "btn btn-info btn-sm mr-2" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
-
-
-

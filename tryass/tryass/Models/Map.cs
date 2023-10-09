@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using tryass.Migrations;
 
 namespace tryass.Models
 {
@@ -30,7 +31,7 @@ namespace tryass.Models
         [Range(-180, 180)] 
         public decimal Longitude { get; set; }
 
-
+        public virtual ICollection<MapRating> Ratings { get; set; }
     }
 
 }

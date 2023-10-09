@@ -5,47 +5,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <h2 class="text-center my-4">@Model.Name Details</h2>
 
-<div>
-    <h4>Map</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="card border-info mb-4">
+        <div class="card-header">Map Details</div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Latitude)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Latitude)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Longitude)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Longitude)</dd>
+            </dl>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
+    <div class="card border-secondary">
+        <div class="card-header"><h4>Ratings</h4></div>
+        <div class="card-body">
+            @if (Model.Ratings.Any())
+            {
+                foreach (var rating in Model.Ratings)
+                {
+                    <div class="border-bottom mb-3 pb-2">
+                        <h5 class="text-info">User: @rating.UserId</h5>
+                        <p><strong>Rating:</strong> @rating.Rating</p>
+                        <p><strong>Comment:</strong> @rating.Comment</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No ratings yet.</p>
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("AddRating", "Maps", FormMethod.Post, new { @class = "mt-3" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
+                    @Html.Hidden("mapId", Model.Id)
 
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
+                    <div class="form-group">
+                        @Html.Label("Rating", new { @class = "font-weight-bold" })
+                        @Html.DropDownList("rating", new SelectList(Enumerable.Range(1, 5)), "Select a rating...", new { @class = "form-control" })
+                    </div>
 
-    </dl>
+                    <div class="form-group">
+                        @Html.Label("Comment", new { @class = "font-weight-bold" })
+                        @Html.TextArea("comment", new { @class = "form-control", rows = "4" })
+                    </div>
+
+                    <input type="submit" value="Add Rating" class="btn btn-primary" />
+                }
+            }
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning mr-2" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

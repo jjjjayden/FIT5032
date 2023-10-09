@@ -138,3 +138,11 @@ Q:\5032ASS\FIT5032\tryass\tryass\bin\System.IdentityModel.Tokens.Jwt.xml
 Q:\5032ASS\FIT5032\tryass\tryass\bin\Twilio.xml
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.maprating.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.delmaprating.resources
+Q:\5032ASS\FIT5032\tryass\tryass\bin\DinkToPdf.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\System.Reflection.TypeExtensions.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Xceed.Document.NET.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Xceed.Words.NET.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\DinkToPdf.pdb
+Q:\5032ASS\FIT5032\tryass\tryass\bin\DinkToPdf.xml
+Q:\5032ASS\FIT5032\tryass\tryass\bin\Rotativa.dll
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.AddMapRatings.resources

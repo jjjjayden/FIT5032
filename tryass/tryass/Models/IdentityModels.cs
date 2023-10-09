@@ -51,6 +51,7 @@ namespace tryass.Models
 
         public DbSet<Annotation> Annotation { get; set; }
 
+        public DbSet<MapRating> MapRatings { get; set; }
 
     }
 }

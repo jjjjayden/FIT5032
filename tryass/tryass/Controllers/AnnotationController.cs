@@ -3,6 +3,10 @@ using System.Net;
 using System.Linq;
 using System.Web.Mvc;
 using tryass.Models;
+using DinkToPdf;
+using Xceed.Words.NET;
+using System.Data.Entity;
+
 
 namespace tryass.Controllers
 {
@@ -121,5 +125,34 @@ namespace tryass.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult DownloadReport(int id, string format)
+        {
+            var annotation = db.Annotation.Include(a => a.XrayImage).FirstOrDefault(a => a.Id == id);
+            if (annotation == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (format.ToLower() == "pdf")
+            {
+                // Rotativa
+                return new Rotativa.ViewAsPdf("ReportForPdf", annotation) { FileName = "report.pdf" };
+            }
+            else if (format.ToLower() == "word")
+            {
+                using (var doc = DocX.Create("report.docx"))
+                {
+                    doc.InsertParagraph("User: " + annotation.UserId);
+                    doc.InsertParagraph("Comment: " + annotation.Comment);
+                    doc.Save();
+                }
+                return File(System.IO.File.ReadAllBytes("report.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "report.docx");
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Unsupported format");
+        }
+
+
     }
 }
