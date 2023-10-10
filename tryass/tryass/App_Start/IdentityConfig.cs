@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,15 +12,24 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using tryass.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 
 namespace tryass
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        private readonly string _apiKey = "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"; // 请替换为您的SendGrid API密钥
+
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var client = new SendGridClient(_apiKey);
+            var from = new EmailAddress("qxy9805152022@163.com", "Xray hoope"); // 请替换为您的发件邮箱和应用名称
+            var to = new EmailAddress(message.Destination);
+
+            var msg = MailHelper.CreateSingleEmail(from, to, message.Subject, message.Body, message.Body);
+            await client.SendEmailAsync(msg);
         }
     }
 

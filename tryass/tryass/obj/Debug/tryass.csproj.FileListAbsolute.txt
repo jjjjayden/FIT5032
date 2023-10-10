@@ -146,3 +146,11 @@ Q:\5032ASS\FIT5032\tryass\tryass\bin\DinkToPdf.pdb
 Q:\5032ASS\FIT5032\tryass\tryass\bin\DinkToPdf.xml
 Q:\5032ASS\FIT5032\tryass\tryass\bin\Rotativa.dll
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.AddMapRatings.resources
+Q:\5032ASS\FIT5032\tryass\tryass\bin\SendGrid.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\StarkbankEcdsa.dll
+Q:\5032ASS\FIT5032\tryass\tryass\bin\SendGrid.pdb
+Q:\5032ASS\FIT5032\tryass\tryass\bin\SendGrid.xml
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.sendemail.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.sendemail2.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.addSendmail.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.addSendmail2.resources

@@ -76,6 +76,12 @@
     <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.28.1.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.28.1\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="StarkbankEcdsa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b2e6337a5d77bfbc, processorArchitecture=MSIL">
+      <HintPath>..\packages\starkbank-ecdsa.1.3.3\lib\net452\StarkbankEcdsa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.1.0\lib\net463\System.AppContext.dll</HintPath>
@@ -195,6 +201,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.2.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -401,6 +408,22 @@
     <Compile Include="Migrations\202310040602293_AddMapRatings.designer.cs">
       <DependentUpon>202310040602293_AddMapRatings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310100549400_sendemail.cs" />
+    <Compile Include="Migrations\202310100549400_sendemail.designer.cs">
+      <DependentUpon>202310100549400_sendemail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310100612486_sendemail2.cs" />
+    <Compile Include="Migrations\202310100612486_sendemail2.designer.cs">
+      <DependentUpon>202310100612486_sendemail2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310100646282_addSendmail.cs" />
+    <Compile Include="Migrations\202310100646282_addSendmail.designer.cs">
+      <DependentUpon>202310100646282_addSendmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310100650098_addSendmail2.cs" />
+    <Compile Include="Migrations\202310100650098_addSendmail2.designer.cs">
+      <DependentUpon>202310100650098_addSendmail2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Annotation.cs" />
@@ -410,9 +433,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MapRating.cs" />
+    <Compile Include="Models\SendEmailViewModel.cs" />
     <Compile Include="Models\XrayImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\EmailSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
@@ -559,6 +584,7 @@
     <Content Include="Views\Annotations\AddComment.cshtml" />
     <Content Include="Views\Annotations\Create.cshtml" />
     <Content Include="Views\Annotations\ReportForPdf.cshtml" />
+    <Content Include="Views\Home\Send_Email.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,6 +650,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310040602293_AddMapRatings.resx">
       <DependentUpon>202310040602293_AddMapRatings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310100549400_sendemail.resx">
+      <DependentUpon>202310100549400_sendemail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310100612486_sendemail2.resx">
+      <DependentUpon>202310100612486_sendemail2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310100646282_addSendmail.resx">
+      <DependentUpon>202310100646282_addSendmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310100650098_addSendmail2.resx">
+      <DependentUpon>202310100650098_addSendmail2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

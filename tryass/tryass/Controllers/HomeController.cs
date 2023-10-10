@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using tryass.Models;
+using tryass.Utils;
 
 namespace tryass.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
-      
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -21,12 +25,61 @@ namespace tryass.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
+        public ActionResult Send_Email()
         {
-            ViewBag.Message = "Your contact page.";
+            var model = new SendEmailViewModel();
+            model.Users = db.Users.Select(u => new UserEmailModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                IsSelected = false
+            }).ToList();
 
-            return View();
+            return View(model);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Send_Email(SendEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                model.SelectedUsers = model.Users.Where(u => u.IsSelected).Select(u => u.Id).ToList();
+
+                var selectedEmails = db.Users.Where(u => model.SelectedUsers.Contains(u.Id))
+                    .Select(u => u.Email).ToList();
+
+                foreach (var email in selectedEmails)
+                {
+                    EmailSender es = new EmailSender();
+                    await es.SendAsync(email, model.Subject, model.Contents);
+
+                }
+
+                ViewBag.Result = "Successful send!";
+
+
+                model = new SendEmailViewModel();
+                model.Users = db.Users.Select(u => new UserEmailModel
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    IsSelected = false
+                }).ToList();
+
+                return View(model);
+            }
+
+
+            model.Users = db.Users.Select(u => new UserEmailModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                IsSelected = false
+            }).ToList();
+
+            return View(model);
+        }
+
     }
 }
