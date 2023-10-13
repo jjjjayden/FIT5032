@@ -154,3 +154,6 @@ Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.sendemail.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.sendemail2.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.addSendmail.resources
 Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.addSendmail2.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.sendFile.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.emailtemplate.resources
+Q:\5032ASS\FIT5032\tryass\tryass\obj\Debug\tryass.Migrations.templeteemail.resources

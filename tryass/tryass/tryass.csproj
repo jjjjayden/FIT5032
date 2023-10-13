@@ -355,6 +355,7 @@
     <Compile Include="Controllers\AnnotationController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
+    <Compile Include="Controllers\EmailTemplatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalSysController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -424,10 +425,23 @@
     <Compile Include="Migrations\202310100650098_addSendmail2.designer.cs">
       <DependentUpon>202310100650098_addSendmail2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310101328428_sendFile.cs" />
+    <Compile Include="Migrations\202310101328428_sendFile.designer.cs">
+      <DependentUpon>202310101328428_sendFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310130723550_emailtemplate.cs" />
+    <Compile Include="Migrations\202310130723550_emailtemplate.designer.cs">
+      <DependentUpon>202310130723550_emailtemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310130734578_templeteemail.cs" />
+    <Compile Include="Migrations\202310130734578_templeteemail.designer.cs">
+      <DependentUpon>202310130734578_templeteemail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Annotation.cs" />
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\EmailTemplate.cs" />
     <Compile Include="Models\HospitalSys.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -585,6 +599,11 @@
     <Content Include="Views\Annotations\Create.cshtml" />
     <Content Include="Views\Annotations\ReportForPdf.cshtml" />
     <Content Include="Views\Home\Send_Email.cshtml" />
+    <Content Include="Views\EmailTemplates\Create.cshtml" />
+    <Content Include="Views\EmailTemplates\Delete.cshtml" />
+    <Content Include="Views\EmailTemplates\Details.cshtml" />
+    <Content Include="Views\EmailTemplates\Edit.cshtml" />
+    <Content Include="Views\EmailTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -662,6 +681,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310100650098_addSendmail2.resx">
       <DependentUpon>202310100650098_addSendmail2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310101328428_sendFile.resx">
+      <DependentUpon>202310101328428_sendFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310130723550_emailtemplate.resx">
+      <DependentUpon>202310130723550_emailtemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310130734578_templeteemail.resx">
+      <DependentUpon>202310130734578_templeteemail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

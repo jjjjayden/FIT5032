@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using tryass.Models;
 using tryass.Utils;
+using Xceed.Document.NET;
 
 namespace tryass.Controllers
 {
@@ -35,15 +36,20 @@ namespace tryass.Controllers
                 IsSelected = false
             }).ToList();
 
+            model.AvailableTemplates = db.EmailTemplates.ToList();  
+
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Send_Email(SendEmailViewModel model)
         {
+
             if (ModelState.IsValid)
             {
 
+                model.AvailableTemplates = db.EmailTemplates.ToList();
                 model.SelectedUsers = model.Users.Where(u => u.IsSelected).Select(u => u.Id).ToList();
 
                 var selectedEmails = db.Users.Where(u => model.SelectedUsers.Contains(u.Id))
@@ -52,9 +58,9 @@ namespace tryass.Controllers
                 foreach (var email in selectedEmails)
                 {
                     EmailSender es = new EmailSender();
-                    await es.SendAsync(email, model.Subject, model.Contents);
-
+                    await es.SendAsync(email, model.Subject, model.Contents, model.Attachment);
                 }
+
 
                 ViewBag.Result = "Successful send!";
 
@@ -82,4 +88,6 @@ namespace tryass.Controllers
         }
 
     }
+
+
 }

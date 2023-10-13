@@ -6,6 +6,7 @@ using tryass.Models;
 using DinkToPdf;
 using Xceed.Words.NET;
 using System.Data.Entity;
+using Xceed.Document.NET;
 
 
 namespace tryass.Controllers
@@ -110,6 +111,16 @@ namespace tryass.Controllers
 
             return View(annotation);
         }
+        public ActionResult DownloadImage(string imageUrl)
+        {
+            var imagePath = Server.MapPath(imageUrl);
+
+            var imageBytes = System.IO.File.ReadAllBytes(imagePath);
+            var filename = System.IO.Path.GetFileName(imageUrl);
+
+            return File(imageBytes, "image/jpeg", filename);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -155,4 +166,6 @@ namespace tryass.Controllers
 
 
     }
+
+
 }

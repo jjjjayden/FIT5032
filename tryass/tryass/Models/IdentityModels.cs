@@ -50,8 +50,8 @@ namespace tryass.Models
         public DbSet<XrayImage> XrayImages { get; set; }
 
         public DbSet<Annotation> Annotation { get; set; }
-
+   
         public DbSet<MapRating> MapRatings { get; set; }
-
+        public DbSet<EmailTemplate> EmailTemplates { get; set; }
     }
 }

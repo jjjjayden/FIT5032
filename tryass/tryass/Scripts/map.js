@@ -1,5 +1,5 @@
 ﻿let map;
-
+let panorama;
 let xmlHttp = new XMLHttpRequest();
 xmlHttp.open("GET", "Maps/GetMaps", false)
 xmlHttp.send(null);
@@ -35,8 +35,13 @@ function geocodeMap(map, address) {
 }
 
 function initMap() {
+    const berkeley = { lat: -34.397, lng: 150.644 };
+    const sv = new google.maps.StreetViewService();
+    panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("pano"),
+    );
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -34.397, lng: 150.644 },
+        center: berkeley,
         zoom: 8,
     });
     if (navigator.geolocation) {
@@ -56,6 +61,15 @@ function initMap() {
     } else {
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    map.addListener("click", (event) => {
+        sv.getPanorama({ location: event.latLng, radius: 50 })
+            .then(processSVData)
+            .catch((e) =>
+                console.error("Street View data not found for this location."),
+        );
+    });
+
     //mark
     for (var i = 0; i < getmaps.length; i++) {
         geocodeMap(map, getmaps[i]);
@@ -93,4 +107,31 @@ function initMap() {
 
 
 }
+function processSVData({ data }) {
+    const location = data.location;
+    const marker = new google.maps.Marker({
+        position: location.latLng,
+        map,
+        title: location.description,
+    });
 
+    panorama.setPano(location.pano);
+    panorama.setPov({
+        heading: 270,
+        pitch: 0,
+    });
+    panorama.setVisible(true);
+    marker.addListener("click", () => {
+        const markerPanoID = location.pano;
+
+        // Set the Pano to use the passed panoID.
+        panorama.setPano(markerPanoID);
+        panorama.setPov({
+            heading: 270,
+            pitch: 0,
+        });
+        panorama.setVisible(true);
+    });
+}
+
+window.initMap = initMap;

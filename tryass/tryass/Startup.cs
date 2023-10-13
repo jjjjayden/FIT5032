@@ -16,13 +16,16 @@ namespace tryass
 
         public void ConfigureJobs()
         {
+            // Start
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
             scheduler.Start();
 
+            //define main job
             IJobDetail job = JobBuilder.Create<AppointmentGenerationJob>()
                 .WithIdentity("appointmentJob", "defaultGroup")
                 .Build();
 
+            //When start
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("dailyTrigger", "defaultGroup")
                 .StartNow()
